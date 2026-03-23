@@ -20,7 +20,8 @@ app.use('/api/predict', predictionRoutes);
 app.use('/api/notifications', notificationRoutes);
 
 // Serve static frontend in production or if needed
-const frontendPath = path.resolve(__dirname, '../frontend/dist/frontend/browser');
+// Use the absolute STATIC_PATH from Docker if it exists, otherwise use local relative path
+const frontendPath = process.env.STATIC_PATH || path.resolve(__dirname, '../frontend/dist/frontend/browser');
 app.use(express.static(frontendPath));
 
 console.log('Serving frontend from:', frontendPath);
